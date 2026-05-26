@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: servidor-web
+  web:
+    resources:
+      # Em dev (rodando `mvn spring-boot:run` dentro de servidor-web/),
+      # servimos o frontend direto da pasta ../frontend/. Assim qualquer
+      # alteracao em HTML/CSS/JS aparece na hora, sem precisar dar build.
+      # Quando empacotar em jar, basta copiar frontend/ para
+      # servidor-web/src/main/resources/static/ antes do mvn package.
+      static-locations:
+        - file:../frontend/
+        - file:./frontend/
+        - classpath:/static/
+
+logging:
+  level:
+    root: INFO
+    com.emiteai.leilao: DEBUG

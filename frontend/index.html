@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Leilao Distribuido</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Leilao Distribuido</h1>
+        <p class="subtitulo">Trabalho final - Sistemas Distribuidos | EmiteAi</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Status do servidor</h2>
+            <button id="btn-ping">Testar conexao</button>
+            <pre id="resposta-ping">Aguardando teste...</pre>
+        </section>
+
+        <section class="card">
+            <h2>Roadmap das entregas</h2>
+            <ol>
+                <li><strong>Entrega 1 (27/05):</strong> Estrutura inicial - voce esta aqui</li>
+                <li><strong>Entrega 2 (03/06):</strong> API REST (GET/POST /api/lances)</li>
+                <li><strong>Entrega 3 (10/06):</strong> Fila assincrona + WebSocket</li>
+                <li><strong>Entrega 4 (17/06):</strong> gRPC + controle de concorrencia</li>
+                <li><strong>Entrega 5 (24/06):</strong> Apresentacao final</li>
+            </ol>
+        </section>
+
+        <section class="card">
+            <h2>Lances recentes</h2>
+            <p class="placeholder">A lista de lances sera habilitada na Entrega 2.</p>
+            <ul id="lista-lances"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <small>servidor-web em http://localhost:8080 | servidor-registro entra em uso na Entrega 4</small>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

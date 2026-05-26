@@ -1,0 +1,29 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build do protobuf (futuro - Entrega 4)
+**/generated-sources/
+
+# Material de estudo pessoal (guia, glossario, plano de entregas)
+docs_ignore/

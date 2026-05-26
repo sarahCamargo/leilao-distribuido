@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.emiteai.leilao</groupId>
+        <artifactId>leilao-distribuido</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>servidor-registro</artifactId>
+    <name>servidor-registro</name>
+    <description>
+        Servidor "caderninho": registra cada lance que o servidor-web aceita.
+        Na Entrega 4 vai virar um servidor gRPC chamado pelo servidor-web a
+        cada lance valido. Na Entrega 1 ele apenas sobe para provar que o
+        segundo servico existe.
+    </description>
+
+    <dependencies>
+        <!-- Na Entrega 1 este modulo so precisa subir como "main" simples.
+             gRPC sera adicionado na Entrega 4. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.emiteai.leilao.registro.ServidorRegistroApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

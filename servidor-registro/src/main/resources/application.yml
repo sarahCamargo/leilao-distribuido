@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: servidor-registro
+  main:
+    # Entrega 1: este servidor nao expoe HTTP (so prova que sobe).
+    # Na Entrega 4 ele vai virar um servidor gRPC na porta 9090.
+    web-application-type: none
+
+logging:
+  level:
+    root: INFO
+    com.emiteai.leilao: DEBUG
