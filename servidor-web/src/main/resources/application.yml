@@ -15,6 +15,9 @@ spring:
         - file:../frontend/
         - file:./frontend/
         - classpath:/static/
+      cache:
+        cachecontrol:
+          no-cache: true
 
 logging:
   level:
