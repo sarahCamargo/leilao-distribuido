@@ -62,22 +62,16 @@ formLance.addEventListener("submit", async (evento) => {
             body: JSON.stringify(corpo),
         });
 
-        const data = await resp.json();
-
         if (!resp.ok) {
+            const data = await resp.json();
             const detalhes = data.detalhes ? data.detalhes.join("\n") : JSON.stringify(data);
             alert("Erro " + resp.status + ":\n" + detalhes);
             return;
         }
 
-        alert(
-            "Lance #" + data.id + " criado!\n" +
-            "Leilao: " + data.leilaoId + "\n" +
-            "Usuario: " + data.usuario + "\n" +
-            "Valor: " + formatadorMoeda.format(data.valor)
-        );
+        const mensagem = await resp.text();
+        alert(mensagem + "\nA tabela atualiza sozinha quando o lance for processado.");
         formLance.reset();
-        await carregarLances(filtroLeilao.value || null);
     } catch (err) {
         alert("Falha: " + err.message);
     }

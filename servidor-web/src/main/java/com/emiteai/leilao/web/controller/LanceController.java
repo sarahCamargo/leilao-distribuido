@@ -1,6 +1,7 @@
 package com.emiteai.leilao.web.controller;
 
 import com.emiteai.leilao.web.dto.NovoLanceRequest;
+import com.emiteai.leilao.web.exception.LanceInvalidoException;
 import com.emiteai.leilao.web.model.Lance;
 import com.emiteai.leilao.web.repository.LanceRepository;
 import jakarta.validation.Valid;
@@ -11,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 import com.emiteai.leilao.web.queue.LanceQueue;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +43,14 @@ public class LanceController {
     public ResponseEntity<String> criar(
             @Valid @RequestBody NovoLanceRequest request
     ) throws InterruptedException {
+
+        repository.maiorValorDoLeilao(request.leilaoId())
+                .filter(maiorAtual -> request.valor().compareTo(maiorAtual) <= 0)
+                .ifPresent(maiorAtual -> {
+                    throw new LanceInvalidoException(
+                            "Lance de R$ " + request.valor() + " nao supera o maior lance atual do leilao "
+                                    + request.leilaoId() + " (R$ " + maiorAtual + ")");
+                });
 
         queue.adicionar(request);
 

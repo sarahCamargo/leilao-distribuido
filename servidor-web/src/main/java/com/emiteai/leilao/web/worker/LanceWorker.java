@@ -15,18 +15,18 @@ public class LanceWorker {
     private final LanceQueue queue;
     private final LanceRepository repository;
     private final LanceWebSocketHandler socketHandler;
-
-    private final ObjectMapper mapper =
-            new ObjectMapper();
+    private final ObjectMapper mapper;
 
     public LanceWorker(
             LanceQueue queue,
             LanceRepository repository,
-            LanceWebSocketHandler socketHandler
+            LanceWebSocketHandler socketHandler,
+            ObjectMapper mapper
     ) {
         this.queue = queue;
         this.repository = repository;
         this.socketHandler = socketHandler;
+        this.mapper = mapper;
     }
 
     @PostConstruct
@@ -44,6 +44,8 @@ public class LanceWorker {
                     System.out.println(
                             "Processando lance..."
                     );
+
+                    Thread.sleep(500);
 
                     Lance lance =
                             repository.salvar(
