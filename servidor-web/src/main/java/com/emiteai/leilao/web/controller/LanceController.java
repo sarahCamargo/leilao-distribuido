@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.emiteai.leilao.web.queue.LanceQueue;
 
 import java.net.URI;
 import java.util.List;
@@ -22,9 +23,14 @@ import java.util.Optional;
 public class LanceController {
 
     private final LanceRepository repository;
+    private final LanceQueue queue;
 
-    public LanceController(LanceRepository repository) {
+    public LanceController(
+            LanceRepository repository,
+            LanceQueue queue
+    ) {
         this.repository = repository;
+        this.queue = queue;
     }
 
     @GetMapping
@@ -35,14 +41,14 @@ public class LanceController {
     }
 
     @PostMapping
-    public ResponseEntity<Lance> criar(@Valid @RequestBody NovoLanceRequest request,
-                                       UriComponentsBuilder uriBuilder) {
-        Lance lance = repository.salvar(request.leilaoId(), request.usuario(), request.valor());
+    public ResponseEntity<String> criar(
+            @Valid @RequestBody NovoLanceRequest request
+    ) throws InterruptedException {
 
-        URI location = uriBuilder.path("/api/lances/{id}")
-                .buildAndExpand(lance.id())
-                .toUri();
+        queue.adicionar(request);
 
-        return ResponseEntity.created(location).body(lance);
+        return ResponseEntity
+                .accepted()
+                .body("Lance enviado para fila");
     }
 }

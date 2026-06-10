@@ -95,3 +95,19 @@ btnLimpar.addEventListener("click", () => {
 carregarLances(null).catch((err) =>
     console.error("Nao foi possivel carregar os lances:", err)
 );
+
+const socket = new WebSocket(
+    "ws://localhost:8080/ws/lances"
+);
+
+socket.onmessage = (event) => {
+
+    console.log(
+        "Novo lance recebido:",
+        event.data
+    );
+
+    carregarLances(
+        filtroLeilao.value || null
+    );
+};
